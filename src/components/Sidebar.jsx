@@ -1,4 +1,5 @@
-import { Flex, Text, Button, Stack } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
+import PlushieManager from "./PlushieManager";
 
 function Sidebar() {
   return (
@@ -10,18 +11,10 @@ function Sidebar() {
       padding={4}
       flexDirection="column"
     >
-      <Text fontSize="xl" fontWeight="bold" mb={4}>
+      <Text fontSize="xl" fontWeight="bold" mb={4} alignSelf="center">
         Plushie Tracker
       </Text>
-      <Stack>
-        <Button color="white">Add</Button>
-        <Button color="white">Remove</Button>
-        <Button color="white">Edit</Button>
-        <Button color="white">View All</Button>
-        <Button color="white" bg="orange.400" w="75%" alignSelf="center">
-          Add Category
-        </Button>
-      </Stack>
+      <PlushieManager></PlushieManager>
     </Flex>
   );
 }
