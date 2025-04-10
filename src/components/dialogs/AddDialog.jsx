@@ -11,8 +11,10 @@ import {
   useFileUploadContext,
   Select,
   createListCollection,
+  Checkbox,
 } from "@chakra-ui/react";
 import { LuFileImage, LuX } from "react-icons/lu";
+import { useAddPlushie } from "./useAddPlushie";
 
 const plushieCategories = createListCollection({
   items: [
@@ -50,6 +52,18 @@ const FileUploadList = () => {
 };
 
 function AddDialog() {
+  const {
+    name,
+    //category,
+    date,
+    isOnDisplay,
+    handleNameChange,
+    //handleCategoryChange,
+    handleDateChange,
+    handleDisplayChange,
+    handleSubmit,
+  } = useAddPlushie();
+
   return (
     <Dialog.Root>
       <Dialog.Trigger>
@@ -66,14 +80,14 @@ function AddDialog() {
           <Stack pl="6" pr="6" gap="4">
             <Field.Root>
               <Field.Label>Name</Field.Label>
-              <Input w="64"></Input>
+              <Input w="64" value={name} onChange={handleNameChange}></Input>
             </Field.Root>
             <FileUpload.Root accept="image/png" gap="1.5">
               <FileUpload.HiddenInput />
               <FileUpload.Label>Photo</FileUpload.Label>
               <FileUpload.Trigger asChild>
                 <Button w="64" variant="outline" size="sm">
-                  <LuFileImage /> Upload Images
+                  <LuFileImage /> Upload Image
                 </Button>
               </FileUpload.Trigger>
               <FileUploadList />
@@ -105,14 +119,21 @@ function AddDialog() {
             </Select.Root>
             <Field.Root>
               <Field.Label>Date</Field.Label>
-              <Input w="64" />
+              <Input w="64" value={date} onChange={handleDateChange} />
             </Field.Root>
+            <Checkbox.Root checked={isOnDisplay} onChange={handleDisplayChange}>
+              <Checkbox.HiddenInput />
+              <Checkbox.Control />
+              <Checkbox.Label>Currently on display?</Checkbox.Label>
+            </Checkbox.Root>
           </Stack>
           <Dialog.Footer mt="4">
             <Dialog.ActionTrigger asChild>
               <Button variant="outline">Cancel</Button>
             </Dialog.ActionTrigger>
-            <Button variant="outline">Save</Button>
+            <Button onClick={handleSubmit} variant="outline">
+              Save
+            </Button>
           </Dialog.Footer>
           <Dialog.CloseTrigger asChild>
             <CloseButton size="sm"></CloseButton>
